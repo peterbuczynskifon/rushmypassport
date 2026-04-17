@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FedEx Partner Page Recovery</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f6f7f9;
+    padding: 24px;
+    color: #1a1a1a;
+  }
+  .widget {
+    max-width: 880px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 36px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    border: 1px solid #eaecef;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .widget:hover {
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    color: white;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 18px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .widget:hover .badge {
+    transform: rotate(-6deg) scale(1.05);
+    box-shadow: 0 8px 20px rgba(124,58,237,0.35);
+  }
+  .priority {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: white;
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748b;
+    background: #f1f5f9;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 16px;
+    line-height: 1.3;
+    color: #0f172a;
+  }
+  .lead {
+    font-size: 15px;
+    line-height: 1.65;
+    color: #475569;
+    margin-bottom: 22px;
+  }
+  .bleed-chart {
+    background: #fef2f2;
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 22px;
+    border: 1px solid #fecaca;
+    transition: transform 0.3s ease;
+  }
+  .bleed-chart:hover { transform: translateY(-2px); }
+  .bleed-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #991b1b;
+    margin-bottom: 14px;
+  }
+  .bleed-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    height: 120px;
+    margin-bottom: 10px;
+  }
+  .bar-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .bar-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f172a;
+  }
+  .bar {
+    width: 100%;
+    max-width: 120px;
+    background: linear-gradient(180deg, #f87171 0%, #dc2626 100%);
+    border-radius: 6px 6px 0 0;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .bar.previous {
+    background: linear-gradient(180deg, #94a3b8 0%, #64748b 100%);
+    height: 100px;
+  }
+  .bar.current {
+    background: linear-gradient(180deg, #f87171 0%, #dc2626 100%);
+    height: 41px;
+  }
+  .bar::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.6s ease;
+  }
+  .bleed-chart:hover .bar::after { left: 100%; }
+  .bleed-chart:hover .bar { transform: scaleY(1.02); }
+  .bar-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #475569;
+  }
+  .bleed-caption {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #991b1b;
+  }
+  .section-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    margin: 22px 0 12px 0;
+  }
+  .audit-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .audit-step {
+    display: flex;
+    gap: 14px;
+    padding: 14px 16px;
+    background: #faf5ff;
+    border: 1px solid #e9d5ff;
+    border-radius: 10px;
+    transition: all 0.25s ease;
+  }
+  .audit-step:hover {
+    background: white;
+    border-color: #a855f7;
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(124,58,237,0.08);
+  }
+  .audit-num {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    background: #7c3aed;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    transition: transform 0.3s ease;
+  }
+  .audit-step:hover .audit-num { transform: rotate(360deg); }
+  .audit-text { font-size: 13.5px; line-height: 1.55; color: #334155; }
+  .audit-text strong { color: #0f172a; }
+  .outcome {
+    background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-top: 18px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: #581c87;
+    border-left: 3px solid #7c3aed;
+  }
+  .outcome strong { color: #3b0764; }
+</style>
+</head>
+<body>
+<div class="widget">
+  <div class="header">
+    <div class="badge">7</div>
+    <span class="priority">P2 — Damage Control</span>
+    <span class="tag">High effort · Partner coordination needed</span>
+  </div>
+  <h1>FedEx Partner Page Recovery</h1>
+  <p class="lead">1,318 /fedex-passport-offices/ URLs deliver 36,198 clicks — but down from 89,198 year-over-year. The single largest concentration of URL-level equity on the site, leaking fast.</p>
+
+  <div class="bleed-chart">
+    <div class="bleed-title"></div>
+    <div class="bleed-bars">
+      <div class="bar-container">
+        <div class="bar-value">89,198</div>
+        <div class="bar previous"></div>
+        <div class="bar-label">Previous Year</div>
+      </div>
+      <div class="bar-container">
+        <div class="bar-value">36,198</div>
+        <div class="bar current"></div>
+        <div class="bar-label">Current</div>
+      </div>
+    </div>
+    <div class="bleed-caption">−59% in 12 months</div>
+  </div>
+
+  <div class="section-title">Audit & Uplift Playbook</div>
+  <div class="audit-steps">
+    <div class="audit-step">
+      <div class="audit-num">1</div>
+      <div class="audit-text"><strong>Thin page consolidation</strong> — pages with &lt;10 monthly clicks and &lt;500 impressions: no-index or roll up to state-level parent.</div>
+    </div>
+    <div class="audit-step">
+      <div class="audit-num">2</div>
+      <div class="audit-text"><strong>Hub-and-spoke enforcement</strong> — many city URLs exist without their state-level parent. Fix the hierarchy.</div>
+    </div>
+    <div class="audit-step">
+      <div class="audit-num">3</div>
+      <div class="audit-text"><strong>Content uplift on high-equity thin pages</strong> — add service × location × FedEx context to pages with rankings but poor engagement.</div>
+    </div>
+    <div class="audit-step">
+      <div class="audit-num">4</div>
+      <div class="audit-text"><strong>Schema.org LocalBusiness</strong> — proper openingHours, geo, telephone for every location.</div>
+    </div>
+    <div class="audit-step">
+      <div class="audit-num">5</div>
+      <div class="audit-text"><strong>Integrate with Tier A local hubs</strong> — city hub as parent, FedEx pages as alternative retail-partner spokes with distinct intent.</div>
+    </div>
+    <div class="audit-step">
+      <div class="audit-num">6</div>
+      <div class="audit-text"><strong>Partner coordination</strong> — any URL count reduction coordinated with FedEx partnership contact.</div>
+    </div>
+  </div>
+
+  <div class="outcome">
+    <strong>Expected outcome:</strong> stop the −59% bleed and recover 20–30% of loss over 6 months. Not a growth driver — this is damage control on your largest URL equity asset.
+  </div>
+</div>
+</body>
+</html>
