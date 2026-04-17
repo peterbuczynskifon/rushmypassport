@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SERP Reality 2026</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f6f7f9;
+    padding: 24px;
+    color: #1a1a1a;
+  }
+  .widget {
+    max-width: 880px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 36px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    border: 1px solid #eaecef;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .widget:hover {
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 52px; height: 40px;
+    padding: 0 10px;
+    background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    color: white;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .widget:hover .badge {
+    transform: rotate(-6deg) scale(1.05);
+    box-shadow: 0 8px 20px rgba(139,92,246,0.35);
+  }
+  .priority {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #8b5cf6;
+    background: #f3e8ff;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    line-height: 1.3;
+    color: #0f172a;
+  }
+  .lead {
+    font-size: 15px;
+    line-height: 1.65;
+    color: #475569;
+    margin-bottom: 24px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 14px;
+    margin-top: 8px;
+  }
+  .card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, #8b5cf6, #6366f1);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .card:hover {
+    background: white;
+    border-color: #c4b5fd;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(139,92,246,0.12);
+  }
+  .card:hover::before { transform: scaleX(1); }
+  .card-letter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px; height: 32px;
+    background: #ede9fe;
+    color: #6d28d9;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+  }
+  .card:hover .card-letter {
+    background: #6d28d9;
+    color: white;
+    transform: scale(1.1);
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 8px;
+  }
+  .card-body {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: #475569;
+  }
+</style>
+</head>
+<body>
+<div class="widget">
+  <div class="header">
+    <div class="badge">1.1</div>
+    <span class="priority">SERP Analysis</span>
+  </div>
+  <h1>What's Actually Winning in 2026 US Passport SERPs</h1>
+  <p class="lead">Four structural forces are reshaping every commercial passport query. Understanding them is a prerequisite for every ranking decision below.</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-letter">A</div>
+      <div class="card-title">AI Overview synthesis</div>
+      <div class="card-body">High-volume informational queries now trigger AI Overviews pulling from 5–8 authoritative sources — almost always travel.state.gov, one major outlet, plus 2–3 of USPS, AAA, Forbes, NerdWallet. Recency markers like "2026" are explicitly weighted.</div>
+    </div>
+    <div class="card">
+      <div class="card-letter">B</div>
+      <div class="card-title">Local Pack + State Dept dominance</div>
+      <div class="card-body">For "passport agency near me" and similar, the SERP is owned by Google Maps Map Pack and travel.state.gov's official locator. Private expediter pages compete for positions 4–8 under a very fat zero-click zone — explaining the 76–91% click collapse.</div>
+    </div>
+    <div class="card">
+      <div class="card-letter">C</div>
+      <div class="card-title">Ultra-specific city blog posts</div>
+      <div class="card-body">11 city blog posts delivered 8,242 clicks vs. 21 /passport-office/[city]/ pages delivering 2,271. Google rewards narrative, problem-first format over brittle "here are our services" templates — by a factor of ~4x.</div>
+    </div>
+    <div class="card">
+      <div class="card-letter">D</div>
+      <div class="card-title">Registered authority + transparency</div>
+      <div class="card-body">Commercial SERPs now heavily favor pages surfacing State Department registration, hand-carry credentials, explicit turnaround guarantees, pricing transparency, and reviewer identity. Thin affiliate content is increasingly filtered.</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
