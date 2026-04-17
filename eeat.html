@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EEAT & Author Authority Infrastructure</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f6f7f9;
+    padding: 24px;
+    color: #1a1a1a;
+  }
+  .widget {
+    max-width: 880px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 36px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    border: 1px solid #eaecef;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .widget:hover {
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, #0891b2, #06b6d4);
+    color: white;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 18px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .widget:hover .badge {
+    transform: rotate(-6deg) scale(1.05);
+    box-shadow: 0 8px 20px rgba(8,145,178,0.35);
+  }
+  .priority {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: white;
+    background: linear-gradient(135deg, #0891b2, #06b6d4);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748b;
+    background: #f1f5f9;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 16px;
+    line-height: 1.3;
+    color: #0f172a;
+  }
+  .lead {
+    font-size: 15px;
+    line-height: 1.65;
+    color: #475569;
+    margin-bottom: 22px;
+  }
+  .section-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    margin: 22px 0 12px 0;
+  }
+  .authors {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 12px;
+  }
+  .author {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 18px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .author::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 100px; height: 100px;
+    background: radial-gradient(circle, rgba(8,145,178,0.08) 0%, transparent 70%);
+    transition: transform 0.4s ease;
+  }
+  .author:hover {
+    background: white;
+    border-color: #67e8f9;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(8,145,178,0.12);
+  }
+  .author:hover::before { transform: scale(1.5); }
+  .avatar {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, #0891b2, #06b6d4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    transition: transform 0.3s ease;
+  }
+  .author:hover .avatar { transform: scale(1.1) rotate(-5deg); }
+  .author-role {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 6px;
+  }
+  .author-desc {
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: #475569;
+  }
+  .pillars {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .pillar {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #f0f9ff;
+    border-radius: 10px;
+    border-left: 3px solid transparent;
+    transition: all 0.25s ease;
+  }
+  .pillar:hover {
+    background: white;
+    border-left-color: #0891b2;
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(8,145,178,0.08);
+  }
+  .pillar-icon {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    background: #06b6d4;
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .pillar-text { font-size: 13.5px; line-height: 1.55; color: #334155; }
+  .pillar-text strong { color: #0f172a; }
+  .moat {
+    background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-top: 22px;
+    border-left: 3px solid #0891b2;
+    font-size: 14px;
+    line-height: 1.55;
+    color: #164e63;
+    transition: transform 0.3s ease;
+  }
+  .moat:hover { transform: translateX(3px); }
+  .moat strong { color: #083344; }
+</style>
+</head>
+<body>
+<div class="widget">
+  <div class="header">
+    <div class="badge">5</div>
+    <span class="priority">P1 — Enabling Infrastructure</span>
+    <span class="tag">Medium upfront · Low ongoing</span>
+  </div>
+  <h1>EEAT & Author Authority Infrastructure</h1>
+  <p class="lead">RushMyPassport has genuine credentials — State Dept registration, 1.5M served, 15 years operating. They're just not marked up. Google's AI Overview citation model is structural, not content-heavy. This is the moat.</p>
+
+  <div class="section-title">Author System — Three Role Archetypes</div>
+  <div class="authors">
+    <div class="author">
+      <div class="avatar">✦</div>
+      <div class="author-role">State Dept Registered Courier</div>
+      <div class="author-desc">Displayed DS-5539 credential reference (no PII, just role verification). Bylines on service and logistics content.</div>
+    </div>
+    <div class="author">
+      <div class="avatar">⚖</div>
+      <div class="author-role">Legal / Regulatory Reviewer</div>
+      <div class="author-desc">Internal counsel or contracted travel attorney. Sign-off on compliance-sensitive content and turnaround claims.</div>
+    </div>
+    <div class="author">
+      <div class="avatar">🌐</div>
+      <div class="author-role">Travel Expert / Ex-Consular</div>
+      <div class="author-desc">Former consular officer archetype. Bylines on informational, country-specific, and edge-case content.</div>
+    </div>
+  </div>
+
+  <div class="section-title">Five Structural Pillars</div>
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-icon">1</div>
+      <div class="pillar-text"><strong>Citation discipline</strong> — every federal fact cites travel.state.gov inline by URL. Primary sources linkable, not buried in footers.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">2</div>
+      <div class="pillar-text"><strong>Entity consolidation</strong> — Organization schema with sameAs links to Trustpilot, ShopperApproved, BBB, press mentions. State Dept registration in schema description.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">3</div>
+      <div class="pillar-text"><strong>Dated content</strong> — "Last reviewed: [date] by [name]" on every fact-bearing page. Quarterly cadence or on federal policy change.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">4</div>
+      <div class="pillar-text"><strong>Review surface consolidation</strong> — resolve the 4.9 / 3.6 inconsistency. The 3.6 in help-center with no acknowledgment currently reads as hidden bad news.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">5</div>
+      <div class="pillar-text"><strong>Transparent policies</strong> — refund, cancellation, "what we do vs. what you do" stated in the first viewport on service pages.</div>
+    </div>
+  </div>
+
+  <div class="moat">
+    <strong>Why this is the moat, not a click driver:</strong> partial recovery of AI Overview citation placement, ranking stability through future algorithm updates, and a conversion-quality boost from trust surface consolidation. Hard to isolate in GSC — easy to feel in revenue per session.
+  </div>
+</div>
+</body>
+</html>
