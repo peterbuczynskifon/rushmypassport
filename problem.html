@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Problem & Edge-Case Topical Cluster</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f6f7f9;
+    padding: 24px;
+    color: #1a1a1a;
+  }
+  .widget {
+    max-width: 880px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 36px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    border: 1px solid #eaecef;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .widget:hover {
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, #0f766e, #14b8a6);
+    color: white;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 18px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .widget:hover .badge {
+    transform: rotate(-6deg) scale(1.05);
+    box-shadow: 0 8px 20px rgba(15,118,110,0.35);
+  }
+  .priority {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: white;
+    background: linear-gradient(135deg, #0f766e, #14b8a6);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748b;
+    background: #f1f5f9;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 16px;
+    line-height: 1.3;
+    color: #0f172a;
+  }
+  .lead {
+    font-size: 15px;
+    line-height: 1.65;
+    color: #475569;
+    margin-bottom: 22px;
+  }
+  .insight {
+    background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 24px;
+    border-left: 3px solid #0f766e;
+    font-size: 14px;
+    line-height: 1.55;
+    color: #134e4a;
+    transition: transform 0.3s ease;
+  }
+  .insight:hover { transform: translateX(3px); }
+  .insight strong { color: #042f2e; }
+  .section-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    margin: 22px 0 12px 0;
+  }
+  .scenarios {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+  }
+  .scenario {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 18px;
+    transition: all 0.3s ease;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+  .scenario::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, #0f766e, #14b8a6);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .scenario:hover {
+    background: white;
+    border-color: #5eead4;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(15,118,110,0.1);
+  }
+  .scenario:hover::before { transform: scaleX(1); }
+  .scenario-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    background: #ccfbf1;
+    color: #0f766e;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+  }
+  .scenario:hover .scenario-icon {
+    background: #0f766e;
+    color: white;
+    transform: rotate(-5deg) scale(1.1);
+  }
+  .scenario-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 8px;
+  }
+  .scenario-urls {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .scenario-url {
+    font-family: 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 11.5px;
+    color: #0f766e;
+    padding: 3px 8px;
+    background: #f0fdfa;
+    border-radius: 4px;
+    display: inline-block;
+    width: fit-content;
+  }
+  .risks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .risk {
+    padding: 14px;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.55;
+    color: #78350f;
+    transition: all 0.25s ease;
+  }
+  .risk:hover {
+    background: #fef3c7;
+    transform: translateY(-2px);
+  }
+  .risk strong {
+    display: block;
+    color: #451a03;
+    font-size: 13.5px;
+    margin-bottom: 4px;
+  }
+  .outcome {
+    background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-top: 18px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: #134e4a;
+    border-left: 3px solid #0f766e;
+  }
+  .outcome strong { color: #042f2e; }
+</style>
+</head>
+<body>
+<div class="widget">
+  <div class="header">
+    <div class="badge">8</div>
+    <span class="priority">P2</span>
+    <span class="tag">Medium effort · High compliance</span>
+  </div>
+  <h1>Problem & Edge-Case Topical Cluster</h1>
+  <p class="lead">Lost, stolen, damaged, name change, child passport scenarios. Highest-complexity, highest-AOV user segments. Genuine life crises — willing to pay maximum fees.</p>
+
+  <div class="insight">
+    <strong>Why this is defensible:</strong> complexity defeats AI Overview. Lost passport abroad, name change with marriage certificate timing, divorced parents signing for a child passport — these require human authority and edge-case-aware content AI cannot fully synthesize.
+  </div>
+
+  <div class="section-title">Scenario-Specific Spokes</div>
+  <div class="scenarios">
+    <div class="scenario">
+      <div class="scenario-icon">🧳</div>
+      <div class="scenario-title">Lost Passport</div>
+      <div class="scenario-urls">
+        <span class="scenario-url">/lost-passport/abroad/</span>
+        <span class="scenario-url">/lost-passport/while-traveling/</span>
+      </div>
+    </div>
+    <div class="scenario">
+      <div class="scenario-icon">💍</div>
+      <div class="scenario-title">Name Change</div>
+      <div class="scenario-urls">
+        <span class="scenario-url">/name-change/after-marriage/</span>
+        <span class="scenario-url">/name-change/divorce/</span>
+      </div>
+    </div>
+    <div class="scenario">
+      <div class="scenario-icon">👶</div>
+      <div class="scenario-title">Child Passport</div>
+      <div class="scenario-urls">
+        <span class="scenario-url">/child-passport/divorced-parents/</span>
+        <span class="scenario-url">/child-passport/deceased-parent/</span>
+      </div>
+    </div>
+    <div class="scenario">
+      <div class="scenario-icon">📍</div>
+      <div class="scenario-title">Local Integration</div>
+      <div class="scenario-urls">
+        <span class="scenario-url">/passport-office/[city]/lost-passport/</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Risk Register</div>
+  <div class="risks">
+    <div class="risk">
+      <strong>⚠ Compliance — High</strong>
+      Lost/stolen scenarios involve US consulate interactions and identity protection. Every scenario reviewed against current State Department guidance.
+    </div>
+    <div class="risk">
+      <strong>⚠ Reputational</strong>
+      These users are most likely to leave 1-star reviews if service falls short. Service-delivery alignment matters as much as content quality.
+    </div>
+  </div>
+
+  <div class="outcome">
+    <strong>Expected outcome:</strong> 4,000–8,000 monthly incremental clicks over 12 months at high commercial intent. Defensible because AI Overview cannot fully answer these. EEAT layer (named expert attribution) is especially critical — users in crisis validate hard before trusting a third party with sensitive documents.
+  </div>
+</div>
+</body>
+</html>
